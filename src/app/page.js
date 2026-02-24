@@ -1,10 +1,21 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { api } from "@/lib/api";
 
-export default function Home() {
+async function getPosts(params) {
+  return await api.get("/posts")
+}
+
+export default async function Home() {
+  const posts = await getPosts()
+  console.log(posts, "posts")
+  console.log('sasha')
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        {posts?.data?.map((item) => {
+          <div>{item.title}</div>
+        })}
         <Image
           className={styles.logo}
           src="/next.svg"
