@@ -9,14 +9,23 @@ import MainImage from "@/assets/img/mission-section-image.png";
 import YoutIMage from "@/assets/img/yout_force.png";
 import styles from "./page.module.css";
 
+
+async function getPage(params) {
+  return await api.get("/pages/2?_embed")
+}
 async function getPosts(params) {
   return await api.get("/posts?_embed&per_page=3")
 }
 
 export default async function Home() {
   const posts = await getPosts()
+  const page = await getPage();
   console.log(posts, "posts")
-  console.log('sasha')
+  console.log('sasha', page)
+  const title1 = page?.data?.title?.rendered.split(" ")[0];
+  const title2 = page?.data?.title?.rendered.split(" ")[1];
+
+  const description = page?.data?.excerpt?.rendered
   return (
 
     <>
@@ -26,8 +35,8 @@ export default async function Home() {
         <section className={styles.hero}>
           <div className={clsx(styles.container, styles['hero-container'])}>
             <div className={styles['hero-content']}>
-              <h1>Навчайся.<br />Створюй. Надихай!</h1>
-              <p>Використовуй наші інструменти для створення та розвитку власних освітніх продуктів. Ми допоможемо тобі на кожному етапі: від ідеї до реалізації. Розкрий свій потенціал та стань частиною інноваційного освітнього ком'юніті.</p>
+              <h1>{title1} <br />{title2}</h1>
+              <p dangerouslySetInnerHTML={{ __html: description }}></p>
             </div>
             <div className={styles['hero-graphic']}>
               <Image src={BubbleImage} alt="Hero Graphic" />
@@ -120,7 +129,6 @@ export default async function Home() {
               </div> */}
               {posts?.data?.map(post => {
                 const img_prev = post?._embedded['wp:featuredmedia'] && post?._embedded['wp:featuredmedia'][0]?.source_url;
-                console.log(post, "post")
                 return (
                   <div key={post.id} className={styles.card}>
                     {img_prev ? <img src={img_prev} alt="Preview project" /> : <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />}
