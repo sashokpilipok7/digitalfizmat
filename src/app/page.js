@@ -1,9 +1,12 @@
 import Image from "next/image";
-import { api } from "@/lib/api";
 import clsx from "clsx";
+import { api } from "@/lib/api";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 import BubbleImage from "@/assets/img/main-section-bubble.png";
 import MainImage from "@/assets/img/mission-section-image.png";
+import YoutIMage from "@/assets/img/yout_force.png";
 import styles from "./page.module.css";
 
 async function getPosts(params) {
@@ -17,34 +20,7 @@ export default async function Home() {
   return (
 
     <>
-      <header className="header">
-        <div className="container header-container">
-          <a href="#" className="logo">
-            <img src="https://placehold.co/40x40/3a6df0/ffffff?text=SF" alt="Logo" />
-            <span>STUDY FLOW</span>
-          </a>
-          <nav className="main-nav">
-            <ul>
-              <li><a href="#mission">Місія</a></li>
-              <li><a href="#results">Результати</a></li>
-              <li><a href="#cases">Кейси</a></li>
-              <li><a href="#cta">Внесок</a></li>
-              <li><a href="#contacts">Контакти</a></li>
-            </ul>
-          </nav>
-          <div className="user-actions">
-            <a href="#" className="lang-switcher">UA</a>
-            <a href="#" className="user-profile">
-              <img src="https://placehold.co/30x30/444/fff?text=U" alt="User" />
-            </a>
-          </div>
-          <button className="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </header>
+      <Header />
 
       <main>
         <section className={styles.hero}>
@@ -55,7 +31,6 @@ export default async function Home() {
             </div>
             <div className={styles['hero-graphic']}>
               <Image src={BubbleImage} alt="Hero Graphic" />
-              {/* <img src="https://placehold.co/500x500/1a1a2e/3a6df0?text=Abstract+Graphic" alt="Abstract Graphic" /> */}
             </div>
           </div>
         </section>
@@ -126,56 +101,56 @@ export default async function Home() {
             <h2>УСПІШНІ КЕЙСИ</h2>
             <div className={styles['featured-case']}>
               <div className={styles['case-logo']}>
-                <img src="https://placehold.co/300x300/1a1a2e/fca311?text=YF+Logo" alt="YouthForce Logo" />
-                <h3>YouthForce: Цифрове портфоліо студента</h3>
+                <Image src={YoutIMage} alt="YothForce logo" />
+                <h3>YouthForce: <span> Цифрове портфоліо студента</span></h3>
               </div>
               <div className={styles['case-info']}>
                 <h3>YouthForce — це інноваційна платформа та цифрове портфоліо студента.</h3>
-                <p>Вона дозволяє студентам демонструвати свої досягнення, навички та проекти потенційним роботодавцям. Платформа інтегрує академічні та позанавчальні активності, створюючи цілісний профіль для успішного старту кар'єри.</p>
+                <p>Ми надаємо студентам можливість взяти участь у реальних проєктах на підтверджений практичний досвід і цінні навички. Створюємо надійний місток між освітою та ринком праці, ефективно розриваючи "замкнене коло першої роботи" для молоді та надаючи роботодавцям доступ до перевірених талантів.</p>
                 <a href="#" className={clsx(styles.btn, styles['btn-primary'])}>Детальніше</a>
               </div>
             </div>
 
             <div className={styles['cards-grid']}>
-              <div className={styles.card}>
+              {/* <div className={styles.card}>
                 <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />
                 <h4>Digital Learning Hub</h4>
                 <p>Освітній хаб, що надає доступ до сучасних курсів та ресурсів для розвитку цифрових навичок.</p>
                 <a href="#" className={styles['card-link']}>Детальніше</a>
-              </div>
-              <div className={styles.card}>
-                <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />
-                <h4>Digital Learning Hub</h4>
-                <p>Освітній хаб, що надає доступ до сучасних курсів та ресурсів для розвитку цифрових навичок.</p>
-                <a href="#" className={styles['card-link']}>Детальніше</a>
-              </div>
-              <div className="card">
-                <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />
-                <h4>Digital Learning Hub</h4>
-                <p>Освітній хаб, що надає доступ до сучасних курсів та ресурсів для розвитку цифрових навичок.</p>
-                <a href="#" className={styles['card-link']}>Детальніше</a>
-              </div>
+              </div> */}
+              {posts?.data?.map(post => {
+                return (
+                  <div key={post.id} className={styles.card}>
+                    <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />
+                    <h4>{post?.title?.rendered}</h4>
+                    <p>Освітній хаб, що надає доступ до сучасних курсів та ресурсів для розвитку цифрових навичок.</p>
+                    <a href={post?.link} className={styles['card-link']}>Детальніше</a>
+                  </div>
+                )
+              })}
+
             </div>
           </div>
         </section>
 
-        <section className="cta" id="cta">
-          <div className="container cta-container">
-            <div className="cta-content">
-              <span className="cta-overline">ЗРОБИ СВІЙ ВНЕСОК</span>
-              <h1 className="cta-title">
+        <section className={styles.cta} id="cta">
+          <div className={clsx(styles.container, styles['cta-container'])}>
+            <div className={styles['cta-content']}>
+              <span className={styles['cta-overline']}>ЗРОБИ СВІЙ ВНЕСОК</span>
+              <h1 className={styles['cta-title']}>
                 <span>НАВЧАЙСЯ</span>
                 <span>СТВОРЮЙ</span>
                 <span>НАДИХАЙ!</span>
               </h1>
-              <a href="#" className="btn btn-primary">Приєднатися</a>
+              <a href="#" className={clsx(styles.btn, styles['btn-primary'])}>Приєднатися</a>
             </div>
-            <div className="cta-description">
+            <div className={styles['cta-description']}>
               <p>Долучайся до нашої спільноти та стань частиною змін. Разом ми можемо більше!</p>
             </div>
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
