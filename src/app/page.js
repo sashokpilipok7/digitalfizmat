@@ -10,7 +10,7 @@ import YoutIMage from "@/assets/img/yout_force.png";
 import styles from "./page.module.css";
 
 async function getPosts(params) {
-  return await api.get("/posts")
+  return await api.get("/posts?_embed&per_page=3")
 }
 
 export default async function Home() {
@@ -77,19 +77,19 @@ export default async function Home() {
             <h2>РЕЗУЛЬТАТИ</h2>
             <div className={styles['stats-grid']}>
               <div className={styles['stat-item']}>
-                <div className={styles['stat-number']} data-target="20">0 +</div>
+                <div className={styles['stat-number']} data-target="20">20 +</div>
                 <div className={styles['stat-label']}>активних учасників</div>
               </div>
               <div className={styles['stat-item']}>
-                <div className={styles['stat-number']} data-target="10">0 +</div>
+                <div className={styles['stat-number']} data-target="10">10 +</div>
                 <div className={styles['stat-label']}>реалізованих проектів</div>
               </div>
               <div className={styles['stat-item']}>
-                <div className={styles['stat-number']} data-target="3">0 +</div>
+                <div className={styles['stat-number']} data-target="3">3 +</div>
                 <div className={styles['stat-label']}>роки досвіду</div>
               </div>
               <div className={styles['stat-item']}>
-                <div className={styles['stat-number']} data-target="20">0 +</div>
+                <div className={styles['stat-number']} data-target="20">20 +</div>
                 <div className={styles['stat-label']}>партнерів</div>
               </div>
             </div>
@@ -119,9 +119,11 @@ export default async function Home() {
                 <a href="#" className={styles['card-link']}>Детальніше</a>
               </div> */}
               {posts?.data?.map(post => {
+                const img_prev = post?._embedded['wp:featuredmedia'] && post?._embedded['wp:featuredmedia'][0]?.source_url;
+                console.log(post, "post")
                 return (
                   <div key={post.id} className={styles.card}>
-                    <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />
+                    {img_prev ? <img src={img_prev} alt="Preview project" /> : <img src="https://placehold.co/80x80/3a6df0/ffffff?text=DLH" alt="Icon" />}
                     <h4>{post?.title?.rendered}</h4>
                     <p>Освітній хаб, що надає доступ до сучасних курсів та ресурсів для розвитку цифрових навичок.</p>
                     <a href={post?.link} className={styles['card-link']}>Детальніше</a>

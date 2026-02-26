@@ -309,6 +309,16 @@ h2 {
   font-size: 0.9rem;
 }
 
+h2 {
+  padding-bottom: 12px;
+  border-bottom: 1px solid transparent; /* A fallback for older browsers */
+  /* background: linear-gradient(to right, #ffff00 0%, #fff 50%, #ffff00 100%); */
+  border-image: linear-gradient(to right, #ffff0000 0%, #fff 50%, #ffff0000 100%) 1;
+  border-image-slice: 1;
+  background-position: center;
+  background-position: 50% 100%;
+}
+
 @media (max-width: 992px) {
   .hero-content h1 {
     font-size: 3rem;
