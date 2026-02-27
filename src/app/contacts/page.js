@@ -11,10 +11,18 @@ import styles from "./page.module.css";
 
 
 async function getPage(params) {
-    return await api.get("/pages/2?_embed")
+    try {
+        return await api.get("/pages/2?_embed")
+    } catch (error) {
+        console.error("Error fetching page:", error);
+    }
 }
 async function getPosts(params) {
-    return await api.get("/posts?_embed&per_page=3")
+    try {
+        return await api.get("/posts?_embed&per_page=3")
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
 }
 
 export async function generateMetadata() {

@@ -4,9 +4,9 @@ import clsx from "clsx";
 import Logo from "@/assets/img/logo.png"
 
 
-async function getPosts(params) {
-    return await api.get("/posts")
-}
+// async function getPosts(params) {
+//     return await api.get("/posts")
+// }
 
 export default async function Header() {
     return (

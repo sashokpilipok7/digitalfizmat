@@ -14,9 +14,9 @@ import LinkedIn from "@/assets/social-media-icons/linkedin-icon.png";
 
 import styles from "./style.module.css";
 
-async function getPosts(params) {
-    return await api.get("/posts")
-}
+// async function getPosts(params) {
+//     return await api.get("/posts")
+// }
 
 export default async function Footer() {
     return (
