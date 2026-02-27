@@ -37,8 +37,6 @@ export default async function Home() {
   return (
 
     <>
-      <Header />
-
       <main>
         <section className={styles.hero}>
           <div className={clsx(styles.container, styles['hero-container'])}>
@@ -168,7 +166,6 @@ export default async function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }
